@@ -1,6 +1,7 @@
 :root {
   --primary: #c1cd7d;
   --on-primary: #2c3400;
+  --error: #ffb4ab;
   --background: #13140d;
   --surface: #1f2018;
   --surface-high: #2a2b22;
@@ -60,7 +61,7 @@ body {
 .card-actions {
   display: grid;
   gap: 1rem;
-  grid-template-columns: auto 12rem;
+  grid-template-columns: auto 9rem;
 }
 
 small {
@@ -88,6 +89,10 @@ button:hover {
 button:active {
   transform: scale(0.95);
 }
+button:focus {
+  outline: 1px solid var(--primary);
+  outline-offset: 4px;
+}
 .secondary {
   background-color: var(--surface-high);
   color: var(--on-surface);
@@ -111,7 +116,7 @@ dialog::backdrop {
   background-color: rgb(0 0 0 / 0.5);
 }
 
-dialog h2 {
+dialog p {
   margin-bottom: 2rem;
 }
 
@@ -136,6 +141,10 @@ label {
   font-weight: 500;
 }
 
+span[aria-label="required"] {
+  color: var(--error);
+}
+
 input {
   min-width: 12rem;
   max-width: 100%;
@@ -146,4 +155,16 @@ input {
   background-color: var(--surface-high);
 
   font-size: 2rem;
+}
+input:invalid,
+input:focus:invalid {
+  border: 1px solid var(--error);
+}
+input:focus {
+  border: 1px solid var(--primary);
+  outline: none;
+}
+
+.dialog-close {
+  margin-top: 1rem;
 }

@@ -70,7 +70,7 @@ function updateBooks() {
 
     const stateElement = document.createElement("button");
     stateElement.addEventListener("click", () => toggleBookStateByIndex(index));
-    stateElement.innerText = `set as ${book.read ? "not read" : "read"}`;
+    stateElement.innerText = `${book.read ? "read" : "not read"}`;
 
     actionsElement.append(deleteElement, stateElement);
 
@@ -99,6 +99,9 @@ function handleNewBookSubmit(e) {
   );
   addBookToLibrary(newBook);
 
+  handleDialogClose();
+}
+function handleDialogClose() {
   title.value = author.value = pages.value = "";
 
   dialog.close();
