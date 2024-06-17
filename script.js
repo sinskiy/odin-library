@@ -10,4 +10,13 @@ function Book(title, author, pages, read) {
 }
 
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
-console.log(theHobbit.info());
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+
+  dialog.showModal();
+}
+
+const dialog = document.querySelector(".new-book");
+const addForm = document.querySelector(".add");
+addForm.addEventListener("submit", handleFormSubmit);

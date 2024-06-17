@@ -7,5 +7,45 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <section>
+        <article class="card">
+          <!-- TODO: generate for attribute and labelled-by dynamically -->
+          <!-- <label>
+          <input type="checkbox" name="read" id="read" />
+          <span>read</span>
+        </label> -->
+          <div class="card-content">
+            <h2 class="title">The Hobbits</h2>
+            <span class="author">J.R.R. Tolkien</span>
+            <small class="pages">295 pages</small>
+          </div>
+        </article>
+      </section>
+      <form action="" method="get" class="add" onsubmit="">
+        <button>+ add book</button>
+      </form>
+    </main>
+    <dialog class="new-book">
+      <h2>enter new book details</h2>
+      <form method="dialog">
+        <div class="form-column">
+          <label for="title">title</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div class="form-row">
+          <div class="form-column">
+            <label for="author">author</label>
+            <input type="text" name="author" id="author" />
+          </div>
+          <div class="form-column">
+            <label for="pages">pages</label>
+            <input type="number" min="0" name="pages" id="pages" />
+          </div>
+        </div>
+        <button autofocus>save</button>
+      </form>
+    </dialog>
+  </body>
 </html>
