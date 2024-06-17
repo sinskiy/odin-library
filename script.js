@@ -1,7 +1,9 @@
 const savedLibrary = localStorage.library;
 const library = savedLibrary ? JSON.parse(savedLibrary) : [];
 const books = document.querySelector("#books");
-library.length === 0 && createInitialLibrary();
+if (library.length === 0) {
+  createInitialLibrary();
+}
 
 updateBooks();
 
@@ -24,12 +26,15 @@ function updateBooks() {
   // delete all children
   books.innerHTML = "";
 
-  for (const book of library) {
+  for (const i in library) {
     const bookElement = document.createElement("article");
+    bookElement.dataset.index = i;
     bookElement.classList.add("card");
 
     const contentElement = document.createElement("div");
     contentElement.classList.add("card-content");
+
+    const book = library[i];
 
     const titleElement = document.createElement("h2");
     titleElement.classList.add("title");
