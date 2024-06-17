@@ -1,0 +1,11 @@
+:root {
+  --primary: #c1cd7d;
+  --on-primary: #2c3400;
+  --background: #13140d;
+  --surface: #1f2018;
+  --outline: #919283;
+
+  color-scheme: dark;
+  background-color: var(--background);
+  accent-color: var(--primary);
+}
