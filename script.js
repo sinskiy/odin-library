@@ -1,11 +1,8 @@
 const savedLibrary = localStorage.library;
 const library = savedLibrary ? JSON.parse(savedLibrary) : [];
 const books = document.querySelector("#books");
-if (library.length === 0) {
-  createInitialLibrary();
-}
 
-updateBooks();
+handleLibraryChange();
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -18,6 +15,17 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary(book) {
   library.push(book);
+  handleLibraryChange();
+}
+function deleteBookByIndex(index) {
+  library.splice(index, 1);
+  handleLibraryChange();
+}
+function handleLibraryChange() {
+  if (library.length === 0) {
+    createInitialLibrary();
+  }
+
   localStorage.library = JSON.stringify(library);
   updateBooks();
 }
@@ -28,7 +36,6 @@ function updateBooks() {
 
   for (const i in library) {
     const bookElement = document.createElement("article");
-    bookElement.dataset.index = i;
     bookElement.classList.add("card");
 
     const contentElement = document.createElement("div");
@@ -49,7 +56,17 @@ function updateBooks() {
     pagesElement.innerText = `${book.pages} pages`;
 
     contentElement.append(titleElement, authorElement, pagesElement);
-    bookElement.appendChild(contentElement);
+
+    const actionsElement = document.createElement("div");
+    actionsElement.classList.add("card-actions");
+
+    const deleteElement = document.createElement("button");
+    deleteElement.addEventListener("click", () => deleteBookByIndex(Number(i)));
+    deleteElement.innerText = "delete";
+
+    actionsElement.append(deleteElement);
+
+    bookElement.append(contentElement, actionsElement);
     books.appendChild(bookElement);
   }
 }
