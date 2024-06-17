@@ -9,8 +9,6 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = () =>
-    `${title} by ${author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
 }
 
 function addBookToLibrary(book) {
@@ -19,6 +17,10 @@ function addBookToLibrary(book) {
 }
 function deleteBookByIndex(index) {
   library.splice(index, 1);
+  handleLibraryChange();
+}
+function toggleBookStateByIndex(index) {
+  library[index].read = !library[index].read;
   handleLibraryChange();
 }
 function handleLibraryChange() {
@@ -41,7 +43,8 @@ function updateBooks() {
     const contentElement = document.createElement("div");
     contentElement.classList.add("card-content");
 
-    const book = library[i];
+    const index = Number(i);
+    const book = library[index];
 
     const titleElement = document.createElement("h2");
     titleElement.classList.add("title");
@@ -49,7 +52,7 @@ function updateBooks() {
 
     const authorElement = document.createElement("span");
     authorElement.classList.add("author");
-    authorElement.innerText = book.author;
+    authorElement.innerText = `by ${book.author}`;
 
     const pagesElement = document.createElement("small");
     pagesElement.classList.add("pages");
@@ -61,10 +64,15 @@ function updateBooks() {
     actionsElement.classList.add("card-actions");
 
     const deleteElement = document.createElement("button");
-    deleteElement.addEventListener("click", () => deleteBookByIndex(Number(i)));
+    deleteElement.addEventListener("click", () => deleteBookByIndex(index));
+    deleteElement.classList.add("secondary");
     deleteElement.innerText = "delete";
 
-    actionsElement.append(deleteElement);
+    const stateElement = document.createElement("button");
+    stateElement.addEventListener("click", () => toggleBookStateByIndex(index));
+    stateElement.innerText = `set as ${book.read ? "not read" : "read"}`;
+
+    actionsElement.append(deleteElement, stateElement);
 
     bookElement.append(contentElement, actionsElement);
     books.appendChild(bookElement);
@@ -83,7 +91,12 @@ addForm.addEventListener("submit", handleOpenDialog);
 function handleNewBookSubmit(e) {
   e.preventDefault();
 
-  const newBook = new Book(title.value, author.value, Number(pages.value));
+  const newBook = new Book(
+    title.value,
+    author.value,
+    Number(pages.value),
+    false
+  );
   addBookToLibrary(newBook);
 
   title.value = author.value = pages.value = "";
@@ -99,8 +112,8 @@ const author = newBookForm.querySelector("#author");
 const pages = newBookForm.querySelector("#pages");
 
 function createInitialLibrary() {
-  const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
-  const fahrenheit = new Book("Fahrenheit 451", "I have no idea", 150, true);
-  addBookToLibrary(theHobbit);
+  const atlasShrugged = new Book("Atlas Shrugged", "Ayn Rand", 1168, false);
+  const fahrenheit = new Book("Fahrenheit 451", "Ray Bradbury", 156, true);
+  addBookToLibrary(atlasShrugged);
   addBookToLibrary(fahrenheit);
 }
