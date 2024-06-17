@@ -42,7 +42,7 @@ body {
   grid-auto-flow: column;
   align-items: center;
 
-  width: 32rem;
+  width: 42rem;
   padding: 2rem 4rem;
   border: 1px solid var(--outline);
 
@@ -55,6 +55,12 @@ body {
 .card-content {
   display: grid;
   gap: 0.25rem;
+}
+
+.card-actions {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto 12rem;
 }
 
 small {
