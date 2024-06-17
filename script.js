@@ -1,5 +1,9 @@
-const library = [];
+const savedLibrary = localStorage.library;
+const library = savedLibrary ? JSON.parse(savedLibrary) : [];
 const books = document.querySelector("#books");
+library.length === 0 && createInitialLibrary();
+
+updateBooks();
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -12,13 +16,9 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary(book) {
   library.push(book);
+  localStorage.library = JSON.stringify(library);
   updateBooks();
 }
-
-const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
-const fahrenheit = new Book("Fahrenheit 451", "I have no idea", 150, true);
-addBookToLibrary(theHobbit);
-addBookToLibrary(fahrenheit);
 
 function updateBooks() {
   // delete all children
@@ -75,3 +75,10 @@ newBookForm.addEventListener("submit", handleNewBookSubmit);
 const title = newBookForm.querySelector("#title");
 const author = newBookForm.querySelector("#author");
 const pages = newBookForm.querySelector("#pages");
+
+function createInitialLibrary() {
+  const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
+  const fahrenheit = new Book("Fahrenheit 451", "I have no idea", 150, true);
+  addBookToLibrary(theHobbit);
+  addBookToLibrary(fahrenheit);
+}
