@@ -56,7 +56,9 @@ function updateBooks() {
 
     const pagesElement = document.createElement("small");
     pagesElement.classList.add("pages");
-    pagesElement.innerText = `${book.pages} pages`;
+    pagesElement.innerText = `${book.pages} ${
+      book.pages === 1 ? "page" : "pages"
+    }`;
 
     contentElement.append(titleElement, authorElement, pagesElement);
 
